@@ -36,6 +36,15 @@
             </li>
           </ol>
         </li>
+        <li>
+          <a href="#data">3. Data modeling</a>
+        </li>
+        <li>
+          <a href="#usecase">4. Usecase</a>
+        </li>
+        <li>
+          <a href="#progress">5. Project progress & outcome</a>
+        </li>
       </ol>
 
       <label for="authors">Authors</label>
@@ -210,6 +219,110 @@
         either in the JSON format or its extension JSON-LD. For the latter,
         we'll use a parser to transform it in HTML+RDFa format, which will be
         loaded into the page using custom built Angular directives.
+      </p>
+    </section>
+    <section id="data">
+      <h2>3. Data modeling</h2>
+      <img src="assets/models.png" alt="models" />
+      <small class="image-info">ASC Models</small>
+      <p style="margin-top: 50px">
+        The main storage solution used for the above presented graph is MongoDB.
+        Each entity is described in the tables below.
+      </p>
+      <h3>User</h3>
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>id</td>
+          <td>uuid</td>
+          <td>The user id</td>
+        </tr>
+        <tr>
+          <td>name</td>
+          <td>string</td>
+          <td>The name of the user</td>
+        </tr>
+        <tr>
+          <td>email</td>
+          <td>string</td>
+          <td>The email of the user</td>
+        </tr>
+        <tr>
+          <td>password</td>
+          <td>string</td>
+          <td>The password of the user</td>
+        </tr>
+        <tr>
+          <td>username</td>
+          <td>string</td>
+          <td>The username of the user</td>
+        </tr>
+      </table>
+      <h3>Vulnerability</h3>
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>id</td>
+          <td>uuid</td>
+          <td>The vulnerability id</td>
+        </tr>
+        <tr>
+          <td>description</td>
+          <td>string</td>
+          <td>The description of the vulnerability</td>
+        </tr>
+        <tr>
+          <td>type</td>
+          <td>string</td>
+          <td>The type of the vulnerability</td>
+        </tr>
+        <tr>
+          <td>platform</td>
+          <td>string</td>
+          <td>The platform of the vulnerability</td>
+        </tr>
+        <tr>
+          <td>author</td>
+          <td>string</td>
+          <td>The author of the vulnerability</td>
+        </tr>
+        <tr>
+          <td>published_at</td>
+          <td>date</td>
+          <td>The publish date of the vulnerability</td>
+        </tr>
+      </table>
+    </section>
+    <section id="usecase">
+      <h2>4. Usecase</h2>
+      <p>
+        In the below diagram we can see the main flows that an user can explore
+        while using the application. The use case routes are color coded to
+        emphasize the different ways in which a user can interact with our
+        application. Red corresponds to the authentication step and blue
+        corresponds to getting the vulnerabilities feed flow.
+      </p>
+      <img src="assets/usecase.png" alt="usecase" />
+      <small class="image-info">ASC Usecase</small>
+    </section>
+    <section id="progress">
+      <h2>5. Project progress & outcome</h2>
+      <p>
+        A version of our application can be accessed
+        <a
+          href="https://asc-site.netlify.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >here</a
+        >.
       </p>
     </section>
   </body>
