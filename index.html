@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>ASC (Application Security Control)</title>
+  </head>
+  <body>
+    <header class="header">
+      <h3 class="title">Application Security Control</h3>
+      <small class="subtitle">ASC</small>
+    </header>
+    <section>
+      <h1 class="title">ASC (Application Security Control)</h1>
+
+      <ol role="directory" class="list">
+        <li>
+          <a href="#abstract">1. Abstract</a>
+        </li>
+        <li>
+          <a href="#architecture">2. Architecture</a>
+          <ol role="directory" class="list">
+            <li>
+              <a href="#backend">2.1 Back-end component</a>
+            </li>
+            <li>
+              <a href="#frontend">2.2 Front-end component</a>
+            </li>
+          </ol>
+        </li>
+      </ol>
+
+      <label for="authors">Authors</label>
+      <ol id="authors" class="list">
+        <li>
+          <a href="" target="_blank" rel="noopener noreferrer">Teodor Proca</a>
+        </li>
+        <li>
+          <a href="" target="_blank" rel="noopener noreferrer"
+            >Andra Gistescu</a
+          >
+        </li>
+      </ol>
+
+      <label for="affiliations">Affiliations</label>
+      <ul id="affiliations" class="list">
+        <li>
+          <a
+            href="https://www.info.uaic.ro/en/home-page-2/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Faculty of Computer Science</a
+          >
+        </li>
+      </ul>
+    </section>
+    <section id="abstract">
+      <h2>1. Abstract</h2>
+      <p>
+        ASC (Application Security Control) is a web platform able to offer
+        real-time alerts about new security issues for a specific class of
+        software like CMS, frameworks, modules, shopping cart managers, etc.
+      </p>
+      <p>
+        We wish to develop a smart platform which will be able to provide an
+        innovative mean to find the most dangerous vulnerabilities on the web,
+        in order to be up to date with the latest fixes and patches. Or
+        secondary goal is to facilitate the process through which our users can
+        learn how to prevent an eventual attack, how to determine if they are
+        scammed and how to fix a possible vulnerability. All of the provided
+        functionalities are presented in a user-friendly maner through a web
+        interface, whilst offerint a powerful tool not only for experienced
+        developers but also for rookies.
+      </p>
+      <p>The code can be accessed <a href="">here</a>.</p>
+    </section>
+    <section id="architecture">
+      <h2>2. Architecture</h2>
+      <p>
+        In the first section we briefly described the main goals of the
+        application. The architecture has two main components: a front-end part,
+        for the client interaction, built over Angular framework and a back-end
+        component implemented in NodeJs, designed following a few well known
+        paradigms and hosted by using various resources provided by the AWS
+        Cloud Platform. These two components will communicate over the HTTP
+        protocol, using the JSON and its extension JSON-LD as the established
+        data exchange format. The client will build JSON requests to send
+        requests toward the backend component, while the received responses will
+        be in the JSON-LD format. In the frontend implementation, we'll have a
+        module for JSON-LD to HTML+RDFa, in order to have semantic data encoded
+        right in our single page application.
+      </p>
+      <p>
+        The web services conglomerate provides a variety of functionalities,
+        such as getting a list containg the latest vulnerabilities, finding the
+        most suitable fix or patch for a certain vulnerability and real-time
+        notifications about new vulnerabilities found and an endpoint via SPARQL
+        to provide various solution to prevent and/or eradicate such security
+        incidents. More details about each component's particular behaviour can
+        be seen in the corresponding sections from below.
+      </p>
+      <img src="assets/architecture.png" alt="architecture" />
+      <small class="image-info">ASC Architecture</small>
+    </section>
+    <section id="backend">
+      <h2>2.1 Back-end Component</h2>
+      <p>The Back-end Component Architecture is built over 'REST' paradigm.</p>
+      <p>
+        <a
+          href="https://www.codecademy.com/articles/what-is-rest"
+          target="_blank"
+          rel="noopener noreferrer"
+          >REST</a
+        >
+        or REpresentational State Transfer, is an architectural style for
+        providing standards between computer systems on the web, making it
+        easier for systems to communicate with each other. REST-compliant
+        systems, often called RESTful systems, are characterized by how they are
+        stateless and separate the concerns of client and server.
+      </p>
+      <p>This module is composed of the following components:</p>
+      <ul>
+        <li>
+          <a
+            href="https://www.merriam-webster.com/dictionary/proxy"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Proxy</a
+          >
+          - Its role is to receive the requests from the users and check if
+          there is a cached response that can be sent back or redirect the
+          request to the api and cache the response when it comes back.
+        </li>
+        <li>
+          <a href="https://redis.io" target="_blank" rel="noopener noreferrer"
+            >Redis</a
+          >
+          - Its role is to cache the responses for better performance in the
+          app.
+        </li>
+        <li>
+          <a
+            href="https://en.wikipedia.org/wiki/API"
+            target="_blank"
+            rel="noopener noreferrer"
+            >API</a
+          >
+          - Its role is to secure a unique point of access to all
+          functionalities for the web client to call. From the API, the request
+          can go two ways: either to the authentication flow (if the user is not
+          logged in, therefore he does not have a JWT token) or to the
+          authorization flow (if the user has a JWT token and therefore is
+          already authenticated).
+        </li>
+        <li>
+          <a
+            href="https://www.mongodb.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            >MongoDB</a
+          >
+          - Its role is to save the active users data. This will be used in the
+          Authentication flow to insert an active user and will be further
+          consulted by the Authorization flow to validate the authenticity of
+          the JWT token.
+        </li>
+        <li>
+          <a
+            href="https://www.w3.org/TR/rdf-sparql-query/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >SparQL Query Runner Endpoint</a
+          >
+          - This component is in charge of transforming the received parameters
+          in lambdas (through requests) in various SparQL queries, depending on
+          which data source we need to interogate. Once the response is received
+          in the lambda from GraphDB, it will be sent as JSON-LD back to the
+          client.
+        </li>
+      </ul>
+      <p>
+        As a summary, the API offer the main functionalities, being the core
+        elements of our architecture provides an unique point of access for the
+        web client. The API communicate with data sources represented as
+        ontologies for vulnerabilities. The query language for accessing the
+        datasources is SparQL and the communication contract established between
+        the client and the services provider is a mix between JSON (used for
+        request) and JSON-LD (sent through responses).
+      </p>
+    </section>
+    <section id="frontend">
+      <h2>2.2 Front-end Component</h2>
+      <p>
+        The user interface will be created using the Angular framework combined
+        with Material Design, which is ideal for building single-page
+        applications. Angular Material is an implementation of Google's Material
+        Design Specification (2014-2017). This project provides a set of
+        reusable, well-tested, and accessible UI components for AngularJS
+        developers. The web interface will be hosted in Netlify, in order to
+        communicate easily with the other components of the project. The data
+        which is used to populate the web page in specific context is received
+        either in the JSON format or its extension JSON-LD. For the latter,
+        we'll use a parser to transform it in HTML+RDFa format, which will be
+        loaded into the page using custom built Angular directives.
+      </p>
+    </section>
+  </body>
+</html>
