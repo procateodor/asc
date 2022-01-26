@@ -10,13 +10,16 @@ lightOrm.driver.connect();
 
 const getVulnerabilities = () =>
   new Promise((resolve, reject) => {
-    lightOrm.driver.query("select * from vulnerabilities;", (err, data) => {
-      if (err) {
-        reject(err);
-      }
+    lightOrm.driver.query(
+      "select * from vulnerabilities order by id desc;",
+      (err, data) => {
+        if (err) {
+          reject(err);
+        }
 
-      resolve(data);
-    });
+        resolve(data);
+      }
+    );
   });
 
 export { getVulnerabilities };

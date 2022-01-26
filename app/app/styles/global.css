@@ -1,0 +1,15 @@
+.link-item {
+  text-decoration: none;
+  color: whitesmoke;
+  opacity: 0.8;
+}
+
+.link-item:hover,
+.link-item.active {
+  color: white;
+  opacity: 1;
+}
+
+.MuiTablePagination-displayedRows {
+  margin-bottom: 0;
+}
