@@ -9,10 +9,10 @@ import { Typography } from "@mui/material";
 
 export const loader = async () => getVulnerabilities();
 
-// const ably = new Ably.Realtime(
-//   "7YC25Q.12JClg:r9IBW4nN3UyZsfw_sa8tonN41v8NMHsW5WVrjaRqju4"
-// );
-// const channel = ably.channels.get("all");
+const ably = new Ably.Realtime(
+  "7YC25Q.12JClg:r9IBW4nN3UyZsfw_sa8tonN41v8NMHsW5WVrjaRqju4"
+);
+const channel = ably.channels.get("all");
 
 export default function VulnerabilitiesIndex() {
   const vulnerabilities = useLoaderData();
@@ -23,21 +23,21 @@ export default function VulnerabilitiesIndex() {
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    // channel.subscribe((message) => {
-    //   const vulnerability = JSON.parse(message.data);
-    //   if (!allVulnerabilities.find((v) => v.id === vulnerability.id)) {
-    //     setAllVulnerabilities([vulnerability, ...allVulnerabilities]);
-    //     Notification.requestPermission().then(() => {
-    //       new Notification(vulnerability.type, {
-    //         body: vulnerability.description,
-    //       });
-    //     });
-    //   }
-    // });
-    // return () => {
-    //   channel.unsubscribe();
-    // };
-  }, []);
+    channel.subscribe((message) => {
+      const vulnerability = JSON.parse(message.data);
+      if (!allVulnerabilities.find((v) => v.id === vulnerability.id)) {
+        setAllVulnerabilities([vulnerability, ...allVulnerabilities]);
+        Notification.requestPermission().then(() => {
+          new Notification(vulnerability.type, {
+            body: vulnerability.description,
+          });
+        });
+      }
+    });
+    return () => {
+      channel.unsubscribe();
+    };
+  }, [allVulnerabilities]);
 
   useEffect(() => {
     if (searchParams.get("q") !== null && searchParams.get("q") !== undefined) {
@@ -48,6 +48,8 @@ export default function VulnerabilitiesIndex() {
             .includes(searchParams.get("q").toLowerCase())
         )
       );
+    } else {
+      setFilteredVulnerabilities([...allVulnerabilities]);
     }
   }, [searchParams, allVulnerabilities]);
 
