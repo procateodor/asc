@@ -1,0 +1,20 @@
+{
+  "name": "asc",
+  "version": "1.0.0",
+  "description": "[Documentation](https://asc-documentation.netlify.app) [App](https://asc-site.netlify.app/)",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd app && npm run build && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/procateodor/asc.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/procateodor/asc/issues"
+  },
+  "homepage": "https://github.com/procateodor/asc#readme"
+}

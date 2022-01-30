@@ -55,7 +55,7 @@ export default function VulnerabilitiesIndex() {
     return () => {
       channel?.unsubscribe();
     };
-  }, [allVulnerabilities, channel]);
+  }, [allVulnerabilities]);
 
   useEffect(() => {
     if (searchParams.get("q") !== null && searchParams.get("q") !== undefined) {
