@@ -3,6 +3,7 @@ import { useLoaderData } from "remix";
 
 import { authenticator } from "~/services/auth.server";
 import Header from "../components/header";
+import { useEffect, useRef } from "react";
 
 export const loader = async ({ request }) => {
   const user = await authenticator.isAuthenticated(request, {
@@ -16,6 +17,11 @@ export const loader = async ({ request }) => {
 
 export default function Fixes() {
   const { user } = useLoaderData();
+  const sparkqlRef = useRef();
+
+  useEffect(() => {
+    const yasgui = new Yasgui(sparkqlRef.current);
+  }, [sparkqlRef]);
 
   return (
     <>
@@ -30,6 +36,7 @@ export default function Fixes() {
         <Typography variant="h4" color="inherit" mb={3} fontWeight={800}>
           Fixes
         </Typography>
+        <div ref={sparkqlRef}></div>
       </div>
     </>
   );

@@ -21,6 +21,10 @@ export function links() {
     },
     {
       rel: "stylesheet",
+      href: "https://unpkg.com/@triply/yasgui/build/yasgui.min.css",
+    },
+    {
+      rel: "stylesheet",
       href: styles,
     },
   ];
@@ -38,6 +42,7 @@ export default function App() {
       <body vocab="http://schema.org/">
         <Outlet />
         <ScrollRestoration />
+        <script src="https://unpkg.com/@triply/yasgui/build/yasgui.min.js"></script>
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
