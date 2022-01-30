@@ -1054,7 +1054,7 @@ debug@2.6.9:
   dependencies:
     ms "2.0.0"
 
-debug@^4.0.0:
+debug@^4.0.0, debug@^4.3.3:
   version "4.3.3"
   resolved "https://registry.npmjs.org/debug/-/debug-4.3.3.tgz"
   integrity sha512-/zxw5+vh1Tfv+4Qn7a5nsbcJKPaSvCDhojn6FEl9vupwK2VCSDtEiEtqr8DFtzYFOdz63LBkxec7DYuc2jon6Q==
@@ -3121,6 +3121,22 @@ remix-auth-form@^1.1.1:
   integrity sha512-nYrl5HQuEpPGAiHEyxyw2avug8phqvg6PSrl+SJdB2v2Kprge0xYE4e7M4pTojvUau8pk0wZISUhrTEENDsmRw==
   dependencies:
     remix-auth "^3.1.0"
+
+remix-auth-google@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/remix-auth-google/-/remix-auth-google-1.1.0.tgz#4ffdc41b180a7a622d9008e7a25b6e409dbf5f20"
+  integrity sha512-yzZ8JEiSoY/cvo5eJQBIzqpnaWOjQkYCgBklCP1QwT01sdR2F066uhV+jR9Wcx0bPCntdMG4PrytVBJzWTg+BA==
+  dependencies:
+    remix-auth-oauth2 "^1.1.0"
+
+remix-auth-oauth2@^1.1.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/remix-auth-oauth2/-/remix-auth-oauth2-1.2.0.tgz#3399627d1d4320f3d467349b2fd64a0cc031ccbb"
+  integrity sha512-4tTERccQV3A/ljYzQkwNIcXnsx0DwqkwHZBz6D90/EcIsN1Hi4ywq4bwa0KJNm5Fc2J2xlsw2dxpEF0oEmklog==
+  dependencies:
+    debug "^4.3.3"
+    remix-auth "^3.1.0"
+    uuid "^8.3.2"
 
 remix-auth@^3.1.0, remix-auth@^3.2.1:
   version "3.2.1"

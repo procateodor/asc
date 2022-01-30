@@ -18,8 +18,6 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 import { authenticator } from "~/services/auth.server";
-import { login } from "~/db.server";
-import { AuthorizationError } from "remix-auth";
 import { commitSession, getSession } from "~/services/session.server";
 
 export default function Login() {
@@ -132,6 +130,17 @@ export default function Login() {
           </Box>
         </Form>
       </Grid>
+      <Form method="post" action="/auth/google">
+        <Button
+          disableElevation
+          fullWidth
+          size="large"
+          type="submit"
+          variant="contained"
+        >
+          Login with google
+        </Button>
+      </Form>
     </Grid>
   );
 }

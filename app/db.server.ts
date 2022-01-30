@@ -4,10 +4,12 @@ import sha256 from "crypto-js/sha256";
 
 require("dotenv").config();
 
-lightOrm.driver = mysql.createConnection(
-  `mysql://${process.env.USERNAME}:${process.env.PASSWORD}@${process.env.HOST}/${process.env.DATABASE}?ssl=true`
-);
-lightOrm.driver.connect();
+try {
+  lightOrm.driver = mysql.createConnection(
+    `mysql://${process.env.USERNAME}:${process.env.PASSWORD}@${process.env.HOST}/${process.env.DATABASE}?ssl=true`
+  );
+  lightOrm.driver.connect();
+} catch {}
 
 const UsersCollection = new lightOrm.Collection("users");
 
@@ -104,5 +106,21 @@ export const login = (form) =>
           name: model?.get("name"),
         },
       ]);
+    });
+  });
+
+export const loginGoogle = (user) =>
+  new Promise((resolve) => {
+    UsersCollection.findOne({ email: user.email }, function (_, model) {
+      if (!model) {
+        lightOrm.driver.query(
+          `insert into users (name, email, password) values ('${user.name}', '${user.email}', '')`,
+          () => {
+            resolve(user);
+          }
+        );
+      }
+
+      resolve(user);
     });
   });
