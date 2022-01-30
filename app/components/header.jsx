@@ -124,18 +124,17 @@ export default function Header({ user }) {
                 to="/fixes"
                 className={`link-item ${pathname === "/fixes" && "active"}`}
               >
-                <Typography variant="subtitle1" color="inherit" component="div">
+                <Typography
+                  variant="subtitle1"
+                  color="inherit"
+                  component="div"
+                  style={{ marginRight: 10 }}
+                >
                   Fixes
                 </Typography>
               </Link>
               <Form method="post">
-                <IconButton
-                  className="mx-3"
-                  style={{ marginRight: "0 !important" }}
-                  color="info"
-                  size="small"
-                  type="submit"
-                >
+                <IconButton color="info" size="small" type="submit">
                   <LogoutIcon />
                 </IconButton>
               </Form>
