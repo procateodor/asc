@@ -66,15 +66,6 @@ const darkTheme = createTheme({
   },
 });
 
-export const loader = async ({ request }) => {
-  const user = await authenticator.isAuthenticated(request, {
-    failureRedirect: "/login",
-  });
-
-  console.log(user);
-  return null;
-};
-
 export default function Header({ user }) {
   const { pathname } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
