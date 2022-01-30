@@ -1,0 +1,1 @@
+web: cd app && npm i && npm run build && npm start
