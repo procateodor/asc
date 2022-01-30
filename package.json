@@ -4,7 +4,7 @@
   "description": "[Documentation](https://asc-documentation.netlify.app) [App](https://asc-site.netlify.app/)",
   "main": "index.js",
   "scripts": {
-    "start": "cd app && npm run build && npm start"
+    "start": "cd app && npm i && npm run build && npm start"
   },
   "repository": {
     "type": "git",
