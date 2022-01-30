@@ -1,29 +1,47 @@
 import { useLoaderData, useSearchParams } from "remix";
 import { useEffect, useState } from "react";
 import * as Ably from "ably";
+import { Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
+import { authenticator } from "~/services/auth.server";
 import { getVulnerabilities } from "~/db.server";
 import { columns } from "./utils";
-import { Typography } from "@mui/material";
+import Header from "../components/header";
 
-export const loader = async () => getVulnerabilities();
+export const loader = async ({ request }) => {
+  const user = await authenticator.isAuthenticated(request, {
+    failureRedirect: "/login",
+  });
 
-const ably = new Ably.Realtime(
-  "7YC25Q.12JClg:r9IBW4nN3UyZsfw_sa8tonN41v8NMHsW5WVrjaRqju4"
-);
-const channel = ably.channels.get("all");
+  return {
+    user,
+    vulnerabilities: await getVulnerabilities(),
+  };
+};
+
+export let action = async ({ request }) => {
+  await authenticator.logout(request, { redirectTo: "/login" });
+};
 
 export default function VulnerabilitiesIndex() {
-  const vulnerabilities = useLoaderData();
+  const { user, vulnerabilities } = useLoaderData();
   const [allVulnerabilities, setAllVulnerabilities] = useState(vulnerabilities);
   const [filteredVulnerabilities, setFilteredVulnerabilities] =
     useState(allVulnerabilities);
 
+  const [channel, setChannel] = useState(null);
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    channel.subscribe((message) => {
+    const ably = new Ably.Realtime(
+      "7YC25Q.12JClg:r9IBW4nN3UyZsfw_sa8tonN41v8NMHsW5WVrjaRqju4"
+    );
+    setChannel(ably.channels.get("all"));
+  }, []);
+
+  useEffect(() => {
+    channel?.subscribe((message) => {
       const vulnerability = JSON.parse(message.data);
       if (!allVulnerabilities.find((v) => v.id === vulnerability.id)) {
         setAllVulnerabilities([vulnerability, ...allVulnerabilities]);
@@ -35,7 +53,7 @@ export default function VulnerabilitiesIndex() {
       }
     });
     return () => {
-      channel.unsubscribe();
+      channel?.unsubscribe();
     };
   }, [allVulnerabilities]);
 
@@ -54,22 +72,25 @@ export default function VulnerabilitiesIndex() {
   }, [searchParams, allVulnerabilities]);
 
   return (
-    <div
-      style={{
-        lineHeight: "1.4",
-        height: "auto",
-      }}
-      className="container p-2 pt-5"
-    >
-      <Typography variant="h4" color="inherit" mb={3} fontWeight={800}>
-        Vulnerabilities
-      </Typography>
-      <DataGrid
-        style={{ height: "calc(100vh - 200px)", minHeight: "600px" }}
-        rows={filteredVulnerabilities}
-        columns={columns}
-        pageSize={20}
-      />
-    </div>
+    <>
+      <Header user={user} />
+      <div
+        style={{
+          lineHeight: "1.4",
+          height: "auto",
+        }}
+        className="container p-2 pt-5"
+      >
+        <Typography variant="h4" color="inherit" mb={3} fontWeight={800}>
+          Vulnerabilities
+        </Typography>
+        <DataGrid
+          style={{ height: "calc(100vh - 200px)", minHeight: "600px" }}
+          rows={filteredVulnerabilities}
+          columns={columns}
+          pageSize={20}
+        />
+      </div>
+    </>
   );
 }
