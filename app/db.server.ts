@@ -5,12 +5,9 @@ import sha256 from "crypto-js/sha256";
 
 require("dotenv").config();
 
-const client =
-  process.env.ENV === "prod"
-    ? createClient({
-        url: process.env.REDIS_PROD,
-      })
-    : createClient();
+const client = createClient({
+  url: process.env.REDIS_PROD,
+});
 client.on("error", (err) => console.log("Redis Client Error", err));
 
 const UsersCollection = new lightOrm.Collection("users");
