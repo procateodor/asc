@@ -20,11 +20,10 @@ authenticator.use(
       clientSecret: process.env.CLIENT_SECRET,
       callbackURL: process.env.CALLBACK_URL,
     },
-    async ({ profile }) => {
-      return await loginGoogle({
+    async ({ profile }) =>
+      await loginGoogle({
         email: profile.emails[0].value,
         name: profile.displayName,
-      });
-    }
+      })
   )
 );
