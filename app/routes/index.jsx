@@ -1,4 +1,4 @@
-import { useLoaderData, useSearchParams } from "remix";
+import { useLoaderData, useNavigate, useSearchParams } from "remix";
 import { useEffect, useState } from "react";
 import * as Ably from "ably";
 import { Typography } from "@mui/material";
@@ -29,6 +29,8 @@ export default function VulnerabilitiesIndex() {
   const [allVulnerabilities, setAllVulnerabilities] = useState(vulnerabilities);
   const [filteredVulnerabilities, setFilteredVulnerabilities] =
     useState(allVulnerabilities);
+
+  let navigate = useNavigate();
 
   const [channel, setChannel] = useState(null);
   const [searchParams] = useSearchParams();
@@ -89,6 +91,14 @@ export default function VulnerabilitiesIndex() {
           rows={filteredVulnerabilities}
           columns={columns}
           pageSize={20}
+          onRowClick={(rowData) => {
+            navigate("/fixes", {
+              state: {
+                platform: rowData.row.platform,
+                q: rowData.row.description.replace(/[^a-z0-9 ]/gi, ""),
+              },
+            });
+          }}
         />
       </div>
     </>

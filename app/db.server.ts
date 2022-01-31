@@ -30,6 +30,12 @@ export const getVulnerabilities = () =>
         lightOrm.driver = mysql.createConnection(
           `mysql://${process.env.USERNAME}:${process.env.PASSWORD}@${process.env.HOST}/${process.env.DATABASE}?ssl=true`
         );
+
+        lightOrm.driver.on("error", (error) => {
+          console.log(error);
+          lightOrm.driver.destroy();
+        });
+
         lightOrm.driver.connect();
       } catch (error) {
         console.log(error);
@@ -87,6 +93,12 @@ export const register = (form) =>
         lightOrm.driver = mysql.createConnection(
           `mysql://${process.env.USERNAME}:${process.env.PASSWORD}@${process.env.HOST}/${process.env.DATABASE}?ssl=true`
         );
+
+        lightOrm.driver.on("error", (error) => {
+          console.log(error);
+          lightOrm.driver.destroy();
+        });
+
         lightOrm.driver.connect();
       } catch (error) {
         console.log(error);
@@ -138,6 +150,12 @@ export const login = (form) =>
         lightOrm.driver = mysql.createConnection(
           `mysql://${process.env.USERNAME}:${process.env.PASSWORD}@${process.env.HOST}/${process.env.DATABASE}?ssl=true`
         );
+
+        lightOrm.driver.on("error", (error) => {
+          console.log(error);
+          lightOrm.driver.destroy();
+        });
+
         lightOrm.driver.connect();
       } catch (error) {
         console.log(error);
@@ -175,6 +193,12 @@ export const loginGoogle = (user) =>
         lightOrm.driver = mysql.createConnection(
           `mysql://${process.env.USERNAME}:${process.env.PASSWORD}@${process.env.HOST}/${process.env.DATABASE}?ssl=true`
         );
+
+        lightOrm.driver.on("error", (error) => {
+          console.log(error);
+          lightOrm.driver.destroy();
+        });
+
         lightOrm.driver.connect();
       } catch (error) {
         console.log(error);

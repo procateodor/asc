@@ -130,7 +130,7 @@ export default function Header({ user }) {
                   component="div"
                   style={{ marginRight: 10 }}
                 >
-                  Fixes
+                  Reports
                 </Typography>
               </Link>
               <Form method="post">
