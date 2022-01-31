@@ -45,6 +45,9 @@
         <li>
           <a href="#progress">5. Project progress & outcome</a>
         </li>
+        <li>
+          <a href="#progress">6. Bibliography</a>
+        </li>
       </ol>
 
       <label for="authors">Authors</label>
@@ -124,12 +127,12 @@
       <p>The Back-end Component Architecture is built over 'REST' paradigm.</p>
       <p>
         <a
-          href="https://www.codecademy.com/articles/what-is-rest"
+          href="https://www.codecademy.com/article/what-is-rest"
           target="_blank"
           rel="noopener noreferrer"
           >REST</a
         >
-        or REpresentational State Transfer, is an architectural style for
+        or REpresentational State Transfer, is an architectural manner for
         providing standards between computer systems on the web, making it
         easier for systems to communicate with each other. REST-compliant
         systems, often called RESTful systems, are characterized by how they are
@@ -211,14 +214,13 @@
         The user interface will be created using the Angular framework combined
         with Material Design, which is ideal for building single-page
         applications. Angular Material is an implementation of Google's Material
-        Design Specification (2014-2017). This project provides a set of
-        reusable, well-tested, and accessible UI components for AngularJS
-        developers. The web interface will be hosted in Netlify, in order to
-        communicate easily with the other components of the project. The data
-        which is used to populate the web page in specific context is received
-        either in the JSON format or its extension JSON-LD. For the latter,
-        we'll use a parser to transform it in HTML+RDFa format, which will be
-        loaded into the page using custom built Angular directives.
+        Design Specification (2014-2017). The web interface will be hosted in
+        Netlify, in order to communicate easily with the other components of the
+        project. The data which is used to populate the web page in specific
+        context is received either in the JSON format or its extension JSON-LD.
+        For the latter, we'll use a parser to transform it in HTML+RDFa format,
+        which will be loaded into the page using custom built Angular
+        directives.
       </p>
     </section>
     <section id="data">
@@ -316,14 +318,162 @@
     <section id="progress">
       <h2>5. Project progress & outcome</h2>
       <p>
-        A version of our application can be accessed
+        The final version of the Application Security Control application can be
+        accessed at the following link
         <a
-          href="https://asc-site.netlify.app/"
+          href="https://asc-2022.herokuapp.com/"
           target="_blank"
           rel="noopener noreferrer"
-          >here</a
+          >https://asc-2022.herokuapp.com/</a
         >.
       </p>
+      <p>
+        For the users who want to use our application, the user guide is
+        available at the following link:
+        <a
+          href="https://asc-2022.herokuapp.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >https://asc-2022.herokuapp.com/</a
+        >.
+      </p>
+    </section>
+    <section id="architecture">
+      <h2>Architecture</h2>
+      <p>
+        Regarding the initial proposed architecture, there were some updates
+        regarding the way users authenticate into the application and the
+        technology used for the Pub/Sub system, the storage and exposure of the
+        data through the SPARQL endpoint. The updated design of architecture can
+        be seen in the following image:
+        <img src="assets/ASC-architecture.png" alt="architecture" />
+        <small class="image-info">ASC Architecture</small>
+      </p>
+      <p>
+        First of all, in order to access our application, the user can either
+        register with some simple credentials or he can login with their Google
+        account, using the OAuth2 support provided by the
+        <a
+          href="https://www.npmjs.com/package/remix-auth-google"
+          target="_blank"
+          rel="noopener noreferrer"
+          >remix-auth-google</a
+        >
+        package.
+      </p>
+      <p>
+        Ably is used as the Pub/Sub system and provides feature-rich realtime
+        messaging. It offers real-time alerts about new security issues in the
+        form of browser notifications.
+      </p>
+      <p>
+        MongoDB was replaced with MySQL due to its default contraints (field
+        dimension) and better indexing mechanism.
+      </p>
+      <p>
+        Finally, the fixes for the vulnerabilities will be stored in GraphDB and
+        interogated by using SPARQL. GraphDB is a semantic graph database that
+        provides the core infrastructure for solutions where modelling agility,
+        data integration and relationship exploration are important.
+      </p>
+    </section>
+    <section id="implementation">
+      <h2>Functionality Implementation</h2>
+      <h3>Sign up + Sign in + Login with Google</h3>
+      <p>
+        Given the fact that our application is single-page, Angular Material was
+        used in order to implement the user interface. The web interface is
+        hosted on
+        <a
+          href="https://www.heroku.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Heroku</a
+        >. In the figure below, we can see the Sign In page, which will be the
+        first page when an user joins the application. The user has two options
+        for authentication in the application: login with an account created in
+        our application or log in with their Google account. For the
+        authentication with Google, the
+        <a
+          href="https://www.npmjs.com/package/remix-auth-google"
+          target="_blank"
+          rel="noopener noreferrer"
+          >remix-auth-google</a
+        >
+        package was used. It extends the OAuth2 support to access the Google
+        APIs and must have authorization credentials that identify the
+        application to Google's OAuth 2.0 server. In case the user does not have
+        an account, nor a Google account or prefers not to, there is the
+        possibility to register to our application by providing some basic
+        credentials like name, email and password (see the second picture
+        below). Once the user authentication is successful, a user token is
+        generated for the current session.
+        <img src="assets/application/sign-up.PNG" alt="sign-up" />
+        <small class="image-info">Register View</small>
+        <img src="assets/application/sign-in.PNG" alt="sign-in" />
+        <small class="image-info">Login View</small>
+      </p>
+      <h3>Vulnerabilities</h3>
+    </section>
+    <section id="bibliography">
+      <h2>6. References</h2>
+      <ol>
+        <li>
+          <a href="https://www.codecademy.com/article/what-is-rest"
+            >REST - https://www.codecademy.com/article/what-is-rest</a
+          >
+        </li>
+        <li>
+          <a href="https://en.wikipedia.org/wiki/Proxy_server"
+            >Proxy - https://en.wikipedia.org/wiki/Proxy_server</a
+          >
+        </li>
+        <li>
+          <a href="https://redis.io/">Redis - https://redis.io/</a>
+        </li>
+        <li>
+          <a href="https://www.redhat.com/en/topics/api"
+            >API - https://www.redhat.com/en/topics/api</a
+          >
+        </li>
+        <li>
+          <a href="https://www.mongodb.com/"
+            >Mongo DB - https://www.mongodb.com/</a
+          >
+        </li>
+        <li>
+          <a href="https://www.w3.org/TR/rdf-sparql-query/"
+            >SparQL Query Runner Endpoint -
+            https://www.w3.org/TR/rdf-sparql-query/</a
+          >
+        </li>
+        <li>
+          <a href="https://material.angular.io/R/rdf-sparql-query/"
+            >Angular Material - https://material.angular.io/</a
+          >
+        </li>
+        <li>
+          <a href="https://www.heroku.com/">
+            Heroku - https://www.heroku.com/
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://developers.google.com/identity/protocols/oauth2/web-server"
+          >
+            OAuth2 -
+            https://developers.google.com/identity/protocols/oauth2/web-server
+          </a>
+        </li>
+        <li>
+          <a href="https://ably.com/"> Ably - https://ably.com/ </a>
+        </li>
+        <li>
+          <a href="https://www.ontotext.com/products/graphdb/">
+            GraphDB - https://www.ontotext.com/products/graphdb/
+          </a>
+        </li>
+      </ol>
     </section>
   </body>
 </html>
