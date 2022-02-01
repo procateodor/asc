@@ -12,6 +12,8 @@ lightOrm.driver.on("error", (error) => {
   console.log(error);
 });
 
+lightOrm.driver.connect();
+
 let redisClient = null;
 
 if (process.env.ENV !== "prod") {

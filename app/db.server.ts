@@ -18,19 +18,16 @@ export const getVulnerabilities = () =>
         }
       }
 
-      connection.connect();
       connection.query(
         "select * from vulnerabilities order by id desc;",
         async (err, data) => {
           if (err) {
-            connection.destroy();
             reject(err);
           }
 
           if (process.env.ENV !== "prod") {
             await client.set("vulnerabilities", JSON.stringify(data));
           }
-          connection.destroy();
           resolve(data);
         }
       );
@@ -69,10 +66,8 @@ export const register = (form) =>
         password: sha256(form.get("password")).toString(),
       };
 
-      connection.connect();
       UsersCollection.findOne({ email: user.email }, function (_, model) {
         if (model) {
-          connection.destroy();
           resolve(
             JSON.stringify({ email: "An user with this email already exists." })
           );
@@ -81,7 +76,6 @@ export const register = (form) =>
         connection.query(
           `insert into users (name, email, password) values ('${user.name}', '${user.email}', '${user.password}')`,
           () => {
-            connection.destroy();
             resolve(null);
           }
         );
@@ -112,19 +106,15 @@ export const login = (form) =>
         password: sha256(form.get("password")).toString(),
       };
 
-      connection.connect();
       UsersCollection.findOne({ email: user.email }, function (_, model) {
         if (!model) {
-          connection.destroy();
           resolve([{ email: "An user with this email doens't exists." }, null]);
         }
 
         if (model?.get("password") !== user.password) {
-          connection.destroy();
           resolve([{ password: "The password is wrong." }, null]);
         }
 
-        connection.destroy();
         resolve([
           null,
           {
@@ -141,19 +131,16 @@ export const login = (form) =>
 export const loginGoogle = (user) =>
   new Promise((resolve) => {
     try {
-      connection.connect();
       UsersCollection.findOne({ email: user.email }, function (_, model) {
         if (!model) {
           connection.query(
             `insert into users (name, email, password) values ('${user.name}', '${user.email}', '')`,
             () => {
-              connection.destroy();
               resolve(user);
             }
           );
         }
 
-        connection.destroy();
         resolve(user);
       });
     } catch (error) {
