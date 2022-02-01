@@ -131,11 +131,7 @@ export default function Login() {
         </Form>
       </Grid>
       <Grid item>
-        <Form
-          style={{ marginTop: "-200px" }}
-          method="post"
-          action="/auth/google"
-        >
+        <Form method="post" action="/auth/google">
           <Button
             disableElevation
             fullWidth
