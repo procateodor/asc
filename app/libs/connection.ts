@@ -16,7 +16,10 @@ export const client = createClient({
   url: process.env.REDIS_PROD,
 });
 client.on("error", (err) => console.log("Redis Client Error", err));
-client.connect();
+
+if (process.env.ENV !== "prod") {
+  client.connect();
+}
 
 export const UsersCollection = new lightOrm.Collection("users");
 export const connection = lightOrm.driver;

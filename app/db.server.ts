@@ -5,13 +5,15 @@ import { connection, UsersCollection, client } from "~/libs/connection";
 export const getVulnerabilities = () =>
   new Promise(async (resolve, reject) => {
     try {
-      const value = await client.get("vulnerabilities");
+      if (process.env.ENV !== "prod") {
+        const value = await client.get("vulnerabilities");
 
-      if (value) {
-        resolve(JSON.parse(value)),
-          {
-            EX: 10,
-          };
+        if (value) {
+          resolve(JSON.parse(value)),
+            {
+              EX: 10,
+            };
+        }
       }
 
       connection.connect();
@@ -23,7 +25,9 @@ export const getVulnerabilities = () =>
             reject(err);
           }
 
-          await client.set("vulnerabilities", JSON.stringify(data));
+          if (process.env.ENV !== "prod") {
+            await client.set("vulnerabilities", JSON.stringify(data));
+          }
           connection.destroy();
           resolve(data);
         }
