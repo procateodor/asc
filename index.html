@@ -426,7 +426,10 @@
           target="_blank"
           rel="noopener noreferrer"
           >Heroku</a
-        >. In the figure below, we can see the Sign In page, which will be the
+        >. 
+        <img src="assets/authentication-use-case.png" alt="authentication-use-case" />
+        <small class="image-info">Authentication use case</small>
+        In the figure below, we can see the Sign In page, which will be the
         first page when an user joins the application. The user has two options
         for authentication in the application: login with an account created in
         our application or log in with their Google account. For the
@@ -455,10 +458,12 @@
         Redis was used in order to cache the requested data about the
         vulnerabilities and their fixes. Everytime the Vulnerabilities or
         Reports pages are refreshed, the data is received from the cache unless
-        new data is added in real time by our mock server. This mechanism
+        new data is added in real time by our mocking job. This mechanism
         minimizes the waiting time for the user.
       </p>
       <h3>Vulnerabilities</h3>
+      <img src="assets/vulnerabilities-use-case.png" alt="vulnerabilities-use-case" />
+      <small class="image-info">Vulnerabilities use case</small>
       <p>
         Using Web Application Exploits public dataset regarding the exploits on
         Web application vulnerabilities, several vulnerabilities were imported
@@ -511,7 +516,9 @@
       </p>
       <img src="assets/application/reports-1.png" alt="sign-up" />
       <small class="image-info">Reports related to the filtered vulnerability</small>
-      <h3>Vulnerability fixes</h3>
+      <h3>Reports</h3>
+      <img src="assets/reports-use-case.png" alt="reports-use-case" />
+      <small class="image-info">Reports use case</small>
       <p>
         GraphDB was used to store the RDF data for the vulnerability fixes and
         it is queried from the SparQL Query Runner Endpoint. The fixes were
