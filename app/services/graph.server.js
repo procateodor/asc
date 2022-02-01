@@ -29,13 +29,15 @@ const getReports = () =>
       resolve(JSON.parse(data.toString()));
     }
 
-    const value = await client.get("reports");
+    if (process.env.ENV !== "prod") {
+      const value = await client.get("reports");
 
-    if (value) {
-      resolve(JSON.parse(value)),
-        {
-          EX: 10,
-        };
+      if (value) {
+        resolve(JSON.parse(value)),
+          {
+            EX: 10,
+          };
+      }
     }
 
     const payload = new GetQueryPayload()
@@ -82,7 +84,9 @@ const getReports = () =>
               keywords: result.keywords.value,
             }));
 
-            await client.set("reports", JSON.stringify(reports));
+            if (process.env.ENV !== "prod") {
+              await client.set("reports", JSON.stringify(reports));
+            }
             resolve(reports);
           } catch {
             resolve([]);
