@@ -14,10 +14,17 @@ export const loader = async ({ request }) => {
     failureRedirect: "/login",
   });
 
-  return {
-    user,
-    vulnerabilities: await getVulnerabilities(),
-  };
+  try {
+    return {
+      user,
+      vulnerabilities: await getVulnerabilities(),
+    };
+  } catch {
+    return {
+      user,
+      vulnerabilities: [],
+    };
+  }
 };
 
 export let action = async ({ request }) => {

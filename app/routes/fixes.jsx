@@ -158,15 +158,15 @@ export default function Fixes() {
             <Grid key={report.id} item md={6} xs={12}>
               <script type="application/ld+json">
                 {`
-  {
-    "@type"": "${report["@type"]}",
-    "id"": ${report.id},
-    "articleBody": "${report.articleBody}",
-    "articleSection": "${report.articleSection}",
-    "url": "${report.url}",
-    "genre": "${report.genre}",
-    "keywords": "${report.keywords}"
-  }
+{
+  "@type"": "${report["@type"]}",
+  "id"": ${report.id},
+  "articleBody": "${report.articleBody}",
+  "articleSection": "${report.articleSection}",
+  "url": "${report.url}",
+  "genre": "${report.genre}",
+  "keywords": "${report.keywords}"
+}
 `}
               </script>
               <Card variant="outlined" typeof="rdfa:Report">

@@ -159,7 +159,6 @@ export let action = async ({ request }) => {
       failureRedirect: "/login",
     }
   );
-  console.log(errors);
 
   if (errors) {
     return { errors };
