@@ -458,7 +458,7 @@
         Redis was used in order to cache the requested data about the
         vulnerabilities and their fixes. Everytime the Vulnerabilities or
         Reports pages are refreshed, the data is received from the cache unless
-        new data is added in real time by our mocking job. This mechanism
+        new data is added in real time by our mocking job in which case the cache is invalidated and will be recreated with the next request. This mechanism
         minimizes the waiting time for the user.
       </p>
       <h3>Vulnerabilities</h3>
