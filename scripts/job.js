@@ -65,4 +65,4 @@ const addVulnerability = async () => {
 
 setInterval(() => {
   addVulnerability();
-}, 2000);
+}, 5000);

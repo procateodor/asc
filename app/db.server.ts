@@ -121,15 +121,15 @@ export const login = (form) =>
             ]);
           }
 
-          if (model[0]?.get("password") !== user.password) {
+          if (model[0]?.password !== user.password) {
             resolve([{ password: "The password is wrong." }, null]);
           }
 
           resolve([
             null,
             {
-              email: model[0]?.get("email"),
-              name: model[0]?.get("name"),
+              email: model[0]?.email,
+              name: model[0]?.name,
             },
           ]);
         }
