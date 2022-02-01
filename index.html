@@ -381,6 +381,21 @@
         mechanism.
       </p>
       <p>
+        We decided to replace Angular Material with 
+        <a
+        href="https://mui.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        >React Material</a
+      > to make the integration with         
+        <a
+        href="https://remix.run/"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Remix</a
+      > easier and with the purpose of experimenting more with the newest trends in frontend development.
+      </p>
+      <p>
         Finally, the fixes for the vulnerabilities will be stored in
         <a
           href="https://www.ontotext.com/products/graphdb/"
@@ -403,7 +418,7 @@
       <h2>Functionality Implementation</h2>
       <h3>Sign up + Sign in + Login with Google</h3>
       <p>
-        Given the fact that our application is single-page, Angular Material was
+        Given the fact that our application is single-page, React Material was
         used in order to implement the user interface. The web interface is
         hosted on
         <a
@@ -458,7 +473,13 @@
         all, there is the search input that looks for all the vulnerabilities
         that contain the specified keywords. A more advanced filtering mechanism
         is provided at the table level: filter by column with different
-        predicate options (e.g. contains, equals), sorting.
+        operators options (e.g. contains, equals), sorting.
+        <img src="assets/application/vulnerabilities-1.png" alt="sign-up" />
+        <small class="image-info">Vulnerabilites - Filtering Options</small>
+        <img src="assets/application/vulnerabilities-2.png" alt="sign-up" />
+        <small class="image-info">Vulnerabilites - Filtering Options</small>
+        <img src="assets/application/vulnerabilities-3.png" alt="sign-up" />
+        <small class="image-info">Vulnerabilites - Filtering Options</small>
       </p>
       <p>
         In order to build a publish/subscribe system able to offer real-time
@@ -480,12 +501,16 @@
         side, the subscription happens to the same channel, listens for the
         received messages and creates the notifications.
       </p>
+      <img src="assets/application/notification.png" alt="sign-up" />
+      <small class="image-info">Vulnerabilites - Notifications</small>
       <p>
         Moreover, by clicking on a vulnerability we can identify possible fixes
         and related links about the vulnerability in cause. The returned fixes
         must match either the platform of the vulnerability, either its content
         contains keywords from the vulnerability's description.
       </p>
+      <img src="assets/application/reports-1.png" alt="sign-up" />
+      <small class="image-info">Reports related to the filtered vulnerability</small>
       <h3>Vulnerability fixes</h3>
       <p>
         GraphDB was used to store the RDF data for the vulnerability fixes and
@@ -556,9 +581,16 @@
           >Software Application</a
         >
         (e.g genre, url, keywords). Most of the provided technical reports and
-        defensive programming guidelines are around SQL injection and OWASP Top
-        10 Security Vulnerabilities.
+        defensive programming guidelines are around SQL injection and 
+        <a
+        href="https://owasp.org/Top10/"
+        target="_blank"
+        rel="noopener noreferrer"
+        >OWASP Top 10 Security Vulnerabilities</a
+      >.
       </p>
+      <img src="assets/application/reports.png" alt="sign-up" />
+      <small class="image-info">Reports</small>
     </section>
     <section id="data">
       <h2>Data modeling</h2>
@@ -583,22 +615,37 @@
         There are 3 Authentication endpoints:
         <ol>
           <li>
-            <b>/register</b> - exposes a POST method that is responsible with creating an user via the provided credentials: name, email and password.
+            <b>/register</b> - exposes a POST method which is responsible with creating an user via the provided credentials: name, email and password.
           </li>
           <li>
-            <b>/login</b> - exposes a POST method that associates a sessionKey with the logged user an verifies that the password 
+            <b>/login</b> - exposes a POST method which associates a sessionKey with the logged user an verifies that the password 
             matches the one in our database.
           </li>
           <li>
-          <b>/auth/google</b> - exposes a POST method that is responsible for the login with the Google account.
+          <b>/auth/google</b> - exposes a POST method which is responsible for the login with the Google account.
           </li>
         </ol>
         When the user exits the application, their session is cleared due to the Authenticator's destroy method and the user is redirected back to login.
       </p>
-      <h3></h3>
+      <h3>Vulnerabilities endpoint</h3>
+      <p>
+      The vulnerabilities endpoint is a GET method that returns all the vulnerabilities imported from the 
+      <a href="https://www.exploit-db.com/?type=webapps"
+      >Exploit Database</a> and used to populate the table from the first page. 
+      </p>
+      <h3>Reports endpoint</h3>
+      <p>
+        The reports endpoint, <b>/fixes</b>, is a GET method that retrieves all the vulnerability related resources from GraphDB in Json-LD format. The interogation is performed using a SparQL query.
+      </p>
+    </section> 
+    <section id="conclusions">
+      <h2>6. Conclusions</h2>
+      <p>
+        To sum up, the current solution can be a valuable application for any security orieted developer as it offers the possibility to centralize multiple vulnerabilities, advanced filtering, realtime notifications to be aware ahead of time about new security issues and suggests technical reports and defensive programming guidelines related to the vulnerabilities in cause. Application Security Control provides an intuitive user interface, allowing the user to experiment with all its functionalities.
+      </p>
     </section>
     <section id="bibliography">
-      <h2>6. References</h2>
+      <h2>7. References</h2>
       <ol>
         <li>
           <a href="https://www.codecademy.com/article/what-is-rest"
@@ -633,8 +680,13 @@
           >
         </li>
         <li>
-          <a href="https://material.angular.io/R/rdf-sparql-query/"
-            >Angular Material - https://material.angular.io/</a
+          <a href="https://mui.com/"
+            >React Material - https://mui.com/</a
+          >
+        </li>
+        <li>
+          <a href="https://remix.run/"
+            >Remix - https://remix.run/</a
           >
         </li>
         <li>
@@ -674,6 +726,13 @@
           >
             Notification API -
             https://developer.mozilla.org/en-US/docs/Web/API/notification
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://owasp.org/Top10/"
+          >
+            OWASP Top 10 - https://owasp.org/Top10/
           </a>
         </li>
       </ol>
