@@ -3,7 +3,7 @@ const { RepositoryClientConfig, RDFRepositoryClient } =
   require("graphdb").repository;
 const { JsonLDParser } = require("graphdb").parser;
 const { GetQueryPayload, QueryType } = require("graphdb").query;
-const { createClient } = require("redis");
+const { client } = require("~/libs/connection");
 
 const readTimeout = 30000;
 const writeTimeout = 30000;
@@ -18,17 +18,8 @@ const repository = new RDFRepositoryClient(config);
 
 repository.registerParser(new JsonLDParser());
 
-require("dotenv").config();
-
-const client = createClient({
-  url: process.env.REDIS_PROD,
-});
-client.on("error", (err) => console.log("Redis Client Error", err));
-
 const getReports = () =>
   new Promise(async (resolve) => {
-    await client.connect();
-
     const value = await client.get("reports");
 
     if (value) {
@@ -83,7 +74,6 @@ const getReports = () =>
             }));
 
             await client.set("reports", JSON.stringify(reports));
-
             resolve(reports);
           } catch {
             resolve([]);

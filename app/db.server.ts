@@ -1,22 +1,10 @@
-const mysql = require("mysql");
-const lightOrm = require("light-orm");
-import { createClient } from "redis";
 import sha256 from "crypto-js/sha256";
 
-require("dotenv").config();
-
-const client = createClient({
-  url: process.env.REDIS_PROD,
-});
-client.on("error", (err) => console.log("Redis Client Error", err));
-
-const UsersCollection = new lightOrm.Collection("users");
+import { connection, UsersCollection, client } from "~/libs/connection";
 
 export const getVulnerabilities = () =>
   new Promise(async (resolve, reject) => {
     try {
-      await client.connect();
-
       const value = await client.get("vulnerabilities");
 
       if (value) {
@@ -26,31 +14,17 @@ export const getVulnerabilities = () =>
           };
       }
 
-      try {
-        lightOrm.driver = mysql.createConnection(
-          `mysql://${process.env.USERNAME}:${process.env.PASSWORD}@${process.env.HOST}/${process.env.DATABASE}?ssl=true`
-        );
-
-        lightOrm.driver.on("error", (error) => {
-          console.log(error);
-          lightOrm.driver.destroy();
-        });
-
-        lightOrm.driver.connect();
-      } catch (error) {
-        console.log(error);
-      }
-
-      lightOrm.driver.query(
+      connection.connect();
+      connection.query(
         "select * from vulnerabilities order by id desc;",
         async (err, data) => {
           if (err) {
-            await lightOrm.driver.destroy();
+            connection.destroy();
             reject(err);
           }
 
           await client.set("vulnerabilities", JSON.stringify(data));
-          await lightOrm.driver.destroy();
+          connection.destroy();
           resolve(data);
         }
       );
@@ -89,33 +63,19 @@ export const register = (form) =>
         password: sha256(form.get("password")).toString(),
       };
 
-      try {
-        lightOrm.driver = mysql.createConnection(
-          `mysql://${process.env.USERNAME}:${process.env.PASSWORD}@${process.env.HOST}/${process.env.DATABASE}?ssl=true`
-        );
-
-        lightOrm.driver.on("error", (error) => {
-          console.log(error);
-          lightOrm.driver.destroy();
-        });
-
-        lightOrm.driver.connect();
-      } catch (error) {
-        console.log(error);
-      }
-
+      connection.connect();
       UsersCollection.findOne({ email: user.email }, function (_, model) {
         if (model) {
-          lightOrm.driver.destroy();
+          connection.destroy();
           resolve(
             JSON.stringify({ email: "An user with this email already exists." })
           );
         }
 
-        lightOrm.driver.query(
+        connection.query(
           `insert into users (name, email, password) values ('${user.name}', '${user.email}', '${user.password}')`,
           () => {
-            lightOrm.driver.destroy();
+            connection.destroy();
             resolve(null);
           }
         );
@@ -146,33 +106,19 @@ export const login = (form) =>
         password: sha256(form.get("password")).toString(),
       };
 
-      try {
-        lightOrm.driver = mysql.createConnection(
-          `mysql://${process.env.USERNAME}:${process.env.PASSWORD}@${process.env.HOST}/${process.env.DATABASE}?ssl=true`
-        );
-
-        lightOrm.driver.on("error", (error) => {
-          console.log(error);
-          lightOrm.driver.destroy();
-        });
-
-        lightOrm.driver.connect();
-      } catch (error) {
-        console.log(error);
-      }
-
+      connection.connect();
       UsersCollection.findOne({ email: user.email }, function (_, model) {
         if (!model) {
-          lightOrm.driver.destroy();
+          connection.destroy();
           resolve([{ email: "An user with this email doens't exists." }, null]);
         }
 
         if (model?.get("password") !== user.password) {
-          lightOrm.driver.destroy();
+          connection.destroy();
           resolve([{ password: "The password is wrong." }, null]);
         }
 
-        lightOrm.driver.destroy();
+        connection.destroy();
         resolve([
           null,
           {
@@ -189,33 +135,19 @@ export const login = (form) =>
 export const loginGoogle = (user) =>
   new Promise((resolve) => {
     try {
-      try {
-        lightOrm.driver = mysql.createConnection(
-          `mysql://${process.env.USERNAME}:${process.env.PASSWORD}@${process.env.HOST}/${process.env.DATABASE}?ssl=true`
-        );
-
-        lightOrm.driver.on("error", (error) => {
-          console.log(error);
-          lightOrm.driver.destroy();
-        });
-
-        lightOrm.driver.connect();
-      } catch (error) {
-        console.log(error);
-      }
-
+      connection.connect();
       UsersCollection.findOne({ email: user.email }, function (_, model) {
         if (!model) {
-          lightOrm.driver.query(
+          connection.query(
             `insert into users (name, email, password) values ('${user.name}', '${user.email}', '')`,
             () => {
-              lightOrm.driver.destroy();
+              connection.destroy();
               resolve(user);
             }
           );
         }
 
-        lightOrm.driver.destroy();
+        connection.destroy();
         resolve(user);
       });
     } catch (error) {

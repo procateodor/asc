@@ -41,5 +41,11 @@
   "engines": {
     "node": ">=14"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "keywords": [
+    "project",
+    "infoiasi",
+    "wade",
+    "web"
+  ]
 }

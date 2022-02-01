@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>ASC (Application Security Control)</title>
+  </head>
+  <body>
+    <header class="header">
+      <h3 class="title">Application Security Control</h3>
+      <small class="subtitle">ASC</small>
+    </header>
+    <section>
+      <h1 class="title">ASC (Application Security Control) - User Guide</h1>
+
+      <ol role="directory" class="list">
+        <li>
+          <a href="#introduction">1. Introduction</a>
+        </li>
+        <li>
+          <a href="#signin">2. Sign in page</a>
+        </li>
+        <li>
+          <a href="#signup">3. Sign up page</a>
+        </li>
+        <li>
+          <a href="#vulnerabilities">4. Vulnerabilities page</a>
+          <ol role="directory" class="list">
+            <li>
+              <a href="#vulnerabilities-filter">4.1 Filtering & sorting</a>
+            </li>
+            <li>
+              <a href="#vulnerabilities-notifications">4.2 Notifications</a>
+            </li>
+            <li>
+              <a href="#vulnerabilities-preventions">4.3 Search preventions</a>
+            </li>
+          </ol>
+        </li>
+        <li>
+          <a href="#reports">5. Reports page</a>
+          <ol role="directory" class="list">
+            <li>
+              <a href="#reports-filter">5.1 Filtering</a>
+            </li>
+          </ol>
+        </li>
+        <li>
+          <a href="#conclusions">6. Conclusions</a>
+        </li>
+      </ol>
+
+      <label for="authors">Authors</label>
+      <ol id="authors" class="list">
+        <li>
+          <a href="" target="_blank" rel="noopener noreferrer">Teodor Proca</a>
+        </li>
+        <li>
+          <a href="" target="_blank" rel="noopener noreferrer"
+            >Andra Gistescu</a
+          >
+        </li>
+      </ol>
+
+      <label for="affiliations">Affiliations</label>
+      <ul id="affiliations" class="list">
+        <li>
+          <a
+            href="https://www.info.uaic.ro/en/home-page-2/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Faculty of Computer Science</a
+          >
+        </li>
+      </ul>
+    </section>
+    <section id="introduction">
+      <h2>1. Introduction</h2>
+      <p>
+        This document represents a user guide on how to take full advantage of
+        the ASC (Application Security Control) Project features and
+        capabilities. You can explore functionalities like viewing the current
+        vulnerabilities, get real-time notifications when a new vulnerability
+        occurs, view preventions for vulnerabilities and more.
+      </p>
+      <p>
+        If you want to check out the technical documentation, you can do that by
+        clicking
+        <a href="https://asc-documentation.netlify.app" target="_blank">here</a
+        >. For the entire code of the application you can click
+        <a href="http://asc-2022.herokuapp.com/">here</a>.
+      </p>
+    </section>
+    <section id="signin">
+      <h2>2. Sign in page</h2>
+      <p>
+        Once you accessed the application, you should end up on the page
+        presented in the following picture.
+      </p>
+      <img src="assets/sign-in.PNG" alt="signin" />
+      <small class="image-info">Sign in page</small>
+      <p>
+        In this page you can choose between two possible flows: sign in with
+        email and password or sign in with Google.
+      </p>
+      <p>
+        If you choose to sign in with email and password, after you complete the
+        inputs you can press the "SIGN IN" button to proceed. If you have an
+        account, you'll be redirected to the vulnerabilities page, otherwise an
+        error will appear. If you don't have an account you can click on the
+        "Don't have an account? Sign Up." button to go to the sign up page.
+      </p>
+      <p>
+        If you choose to sign in with Google, you can do that by pressing the
+        "LOGIN WITH GOOGLE" button. Once pressed you havce to complete the promp
+        from Google and select the account. If you don't have an account with
+        that email address, an account will be created and you'll be redirected
+        to the vulnerabilities page.
+      </p>
+    </section>
+    <section id="signup">
+      <h2>3. Sign up page</h2>
+      <p>
+        In this page you can create new account and use them to sign in into the
+        application.
+      </p>
+      <img src="assets/sign-up.PNG" alt="signup" />
+      <small class="image-info">Sign up page</small>
+      <p>
+        The Sign up page has four simple inputs. The first input is the name,
+        the second one is your email (which will be used for authentication),
+        while the third and the fourth one are password fields. If the password
+        fields do not match, you will not be allowed to create the account. Once
+        you completed the fields, you can press the Sign Up button. If the
+        process is successful, you should be redirected back towards the login
+        page.
+      </p>
+    </section>
+    <section id="vulnerabilities">
+      <h2>4. Vulnerabilities page</h2>
+      <p></p>
+      <img src="assets/vulnerabilities.png" alt="vulnerabilities" />
+      <small class="image-info">Vulnerabilities page</small>
+    </section>
+    <section id="vulnerabilities-filter">
+      <h2>4.1 Filtering & sorting</h2>
+      <p></p>
+      <img src="assets/vulnerabilities-1.png" alt="vulnerabilities" />
+      <small class="image-info">Vulnerabilities page</small>
+    </section>
+    <section id="vulnerabilities-notifications">
+      <h2>4.2 Notifications</h2>
+      <p></p>
+      <img src="assets/notification.png" alt="vulnerabilities" />
+      <small class="image-info">Vulnerabilities page</small>
+    </section>
+    <section id="vulnerabilities-preventions">
+      <h2>4.3 Search preventions</h2>
+      <p></p>
+      <img src="assets/vulnerabilities.png" alt="vulnerabilities" />
+      <small class="image-info">Vulnerabilities page</small>
+    </section>
+    <section id="reports">
+      <h2>5. Reports page</h2>
+      <p></p>
+      <img src="assets/reports.png" alt="reports" />
+      <small class="image-info">Reports page</small>
+    </section>
+    <section id="reports-filter">
+      <h2>5.1 Filtering</h2>
+      <p></p>
+      <img src="assets/reports-2.png" alt="reports" />
+      <small class="image-info">Reports page</small>
+    </section>
+    <section id="conclusions">
+      <h2>6. Conclusions</h2>
+      <p></p>
+    </section>
+  </body>
+</html>
