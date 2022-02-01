@@ -607,6 +607,135 @@
         classes, object properties and data properties. Each entity is described
         below:
       </p>
+      <h3>User</h3>
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>User</td>
+          <td>owl:Class</td>
+          <td>User entity definition</td>
+        </tr>
+        <tr>
+          <td>id</td>
+          <td>owl:topDataProperty</td>
+          <td>Unique identifier of the user (uuid)</td>
+        </tr>
+        <tr>
+          <td>name</td>
+          <td>owl:topDataProperty</td>
+          <td>The name of the user</td>
+        </tr>
+        <tr>
+          <td>email</td>
+          <td>owl:topDataProperty</td>
+          <td>The email of the user</td>
+        </tr>
+        <tr>
+          <td>password</td>
+          <td>owl:topDataProperty</td>
+          <td>The password of the user</td>
+        </tr>
+      </table>
+      <h3>Vulnerability</h3>
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>Vulnerability</td>
+          <td>owl:Class</td>
+          <td>Vulnerability entity definition</td>
+        </tr>
+        <tr>
+          <td>id</td>
+          <td>owl:topDataProperty</td>
+          <td>Unique identifier of the vulnerability (uuid)</td>
+        </tr>
+        <tr>
+          <td>description</td>
+          <td>owl:topDataProperty</td>
+          <td>The description of the vulnerability</td>
+        </tr>
+        <tr>
+          <td>type</td>
+          <td>owl:topDataProperty</td>
+          <td>The type of the vulnerability</td>
+        </tr>
+        <tr>
+          <td>published</td>
+          <td>owl:topDataProperty</td>
+          <td>The publish date of the vulnerability</td>
+        </tr>
+        <tr>
+          <td>verified</td>
+          <td>owl:ObjectProperty</td>
+          <td>Boolean property atesting if the vulnerability was confirmed</td>
+        </tr>
+        <tr>
+          <td>platform</td>
+          <td>owl:topDataProperty</td>
+          <td>The platform on which the vulnerability occurs</td>
+        </tr>
+        <tr>
+          <td>port</td>
+          <td>owl:topDataProperty</td>
+          <td>The default port on which the vulnerability occurs (depends on the platform)</td>
+        </tr>
+        <tr>
+          <td>risk</td>
+          <td>owl:topDataProperty</td>
+          <td>The severity score of the vulnerability</td>
+        </tr>
+      </table>
+      <h3>Report</h3>
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>Report</td>
+          <td>owl:Class</td>
+          <td>Report entity definition</td>
+        </tr>
+        <tr>
+          <td>id</td>
+          <td>owl:topDataProperty</td>
+          <td>Unique identifier of the report (uuid)</td>
+        </tr>
+        <tr>
+          <td>body</td>
+          <td>owl:topDataProperty</td>
+          <td>The description of the vulnerability</td>
+        </tr>
+        <tr>
+          <td>genre</td>
+          <td>owl:topDataProperty</td>
+          <td>The title/type of the report</td>
+        </tr>
+        <tr>
+          <td>section</td>
+          <td>owl:topDataProperty</td>
+          <td>The platform related to the report</td>
+        </tr>
+        <tr>
+          <td>url</td>
+          <td>owl:topDataProperty</td>
+          <td>The url used for redirecting the user to the full version of a report</td>
+        </tr>
+        <tr>
+          <td>keywords</td>
+          <td>owl:topDataProperty</td>
+          <td>Keywords related to the report</td>
+        </tr>
+      </table>
     </section>
     <section id="api-specification">
       <h2>API Specification</h2>
