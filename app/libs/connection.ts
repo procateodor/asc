@@ -24,6 +24,5 @@ if (process.env.ENV !== "prod") {
   redisClient.connect();
 }
 
-export const UsersCollection = new lightOrm.Collection("users");
 export const connection = lightOrm.driver;
 export const client = redisClient;
