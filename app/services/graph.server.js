@@ -5,6 +5,10 @@ const { JsonLDParser } = require("graphdb").parser;
 const { GetQueryPayload, QueryType } = require("graphdb").query;
 const { client } = require("~/libs/connection");
 
+import { readFile } from "fs/promises";
+
+require("dotenv").config();
+
 const readTimeout = 30000;
 const writeTimeout = 30000;
 const config = new RepositoryClientConfig("http://127.0.0.1:7200")
@@ -20,13 +24,20 @@ repository.registerParser(new JsonLDParser());
 
 const getReports = () =>
   new Promise(async (resolve) => {
-    const value = await client.get("reports");
+    if (process.env.ENV === "prod") {
+      const data = await readFile("./app/services/reports.json");
+      resolve(JSON.parse(data.toString()));
+    }
 
-    if (value) {
-      resolve(JSON.parse(value)),
-        {
-          EX: 10,
-        };
+    if (process.env.ENV !== "prod") {
+      const value = await client.get("reports");
+
+      if (value) {
+        resolve(JSON.parse(value)),
+          {
+            EX: 10,
+          };
+      }
     }
 
     const payload = new GetQueryPayload()
@@ -73,7 +84,9 @@ const getReports = () =>
               keywords: result.keywords.value,
             }));
 
-            await client.set("reports", JSON.stringify(reports));
+            if (process.env.ENV !== "prod") {
+              await client.set("reports", JSON.stringify(reports));
+            }
             resolve(reports);
           } catch {
             resolve([]);

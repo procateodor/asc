@@ -31,6 +31,10 @@ export const loader = async ({ request }) => {
   };
 };
 
+export let action = async ({ request }) => {
+  await authenticator.logout(request, { redirectTo: "/login" });
+};
+
 export default function Fixes() {
   const { user, reports } = useLoaderData();
 

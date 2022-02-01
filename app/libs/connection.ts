@@ -12,11 +12,17 @@ lightOrm.driver.on("error", (error) => {
   console.log(error);
 });
 
-export const client = createClient({
-  url: process.env.REDIS_PROD,
-});
-client.on("error", (err) => console.log("Redis Client Error", err));
-client.connect();
+lightOrm.driver.connect();
 
-export const UsersCollection = new lightOrm.Collection("users");
+let redisClient = null;
+
+if (process.env.ENV !== "prod") {
+  redisClient = createClient({
+    url: process.env.REDIS_PROD,
+  });
+  redisClient.on("error", (err) => console.log("Redis redisClient Error", err));
+  redisClient.connect();
+}
+
 export const connection = lightOrm.driver;
+export const client = redisClient;
