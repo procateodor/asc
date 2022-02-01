@@ -1,0 +1,119 @@
+[
+  {
+    "@type": "https://schema.org/Report",
+    "id": 1,
+    "articleBody": "XSS uses the server to attack visitors of the server. The attack does not target the server itself, but instead the users. The server is simply used to reflect attackers values, typically JavaScript, against visitors who then run the attackers data in their own browser. The attacker has to craft an input which the server does not clean and sanitize, that way when a visitor clicks a link containing the attackers values, or visits a resource on the webpage which the attacker has used in their attack, the user runs code which the attacker supplied.",
+    "articleSection": "Hardware",
+    "url": "https://www.w3schools.com/cybersecurity/cybersecurity_web_applications_attacks.php",
+    "genre": "XSS",
+    "keywords": "cross site scriptin injection"
+  },
+  {
+    "@type": "https://schema.org/Report",
+    "id": 2,
+    "articleBody": "SQL injection usually occurs when you ask a user for input, like their username/userid, and instead of a name/id, the user gives you an SQL statement that you will unknowingly run on your database.",
+    "articleSection": "ASP",
+    "url": "https://www.w3schools.com/sql/sql_injection.asp",
+    "genre": "SQL Injection",
+    "keywords": "sql mysql injection"
+  },
+  {
+    "@type": "https://schema.org/Report",
+    "id": 3,
+    "articleBody": "Attacks on protocols and applications hosted on the Network are plentiful. Web Applications are covered in its own section in this course. Services can have inherent bugs in them allowing them to be exploited by attackers. These attacks typically involve using special instructions to the Operating System, via the vulnerable service, to take control of the process operating the network service. Buffer Overflows is a category of such attacks. A network typically holds many applications, some which holds simple logins and others with complex functionality. One way to gain an overview of the attack surface, and also map out easy to exploit vulnerabilities, is to port scan all the assets in the target environment, then screenshot them.",
+    "articleSection": "Multiple",
+    "url": "https://www.w3schools.com/cybersecurity/cybersecurity_network_attacks.php",
+    "genre": "Remote Code Execution",
+    "keywords": "cross site code execution"
+  },
+  {
+    "@type": "https://schema.org/Report",
+    "id": 4,
+    "articleBody": "Broken Access Control moves up from the fifth position to the category with the most serious web application security risk; the contributed data indicates that on average, 3.81% of applications tested had one or more Common Weakness Enumerations (CWEs) with more than 318k occurrences of CWEs in this risk category. The 34 CWEs mapped to Broken Access Control had more occurrences in applications than any other category.",
+    "articleSection": "Multiple",
+    "url": "https://owasp.org/Top10/A01_2021-Broken_Access_Control/",
+    "genre": "Broken Access Control",
+    "keywords": "access broken control applications weakness security web risk"
+  },
+  {
+    "@type": "https://schema.org/Report",
+    "id": 5,
+    "articleBody": "Cryptographic Failures shifts up one position to #2, previously known as A3:2017-Sensitive Data Exposure, which was broad symptom rather than a root cause. The renewed name focuses on failures related to cryptography as it has been implicitly before. This category often leads to sensitive data exposure or system compromise.",
+    "articleSection": "Hardware",
+    "url": "https://owasp.org/Top10/A02_2021-Cryptographic_Failures/",
+    "genre": "Cryptographic Failures",
+    "keywords": "cryptographic failures weakness security web risk implicitly"
+  },
+  {
+    "@type": "https://schema.org/Report",
+    "id": 6,
+    "articleBody": "Injection slides down to the third position. 94% of the applications were tested for some form of injection with a max incidence rate of 19%, an average incidence rate of 3.37%, and the 33 CWEs mapped into this category have the second most occurrences in applications with 274k occurrences. Cross-site Scripting is now part of this category in this edition.",
+    "articleSection": "Multiple",
+    "url": "https://owasp.org/Top10/A03_2021-Injection/",
+    "genre": "Injection slides",
+    "keywords": "injection slides applications cross-site scripting"
+  },
+  {
+    "@type": "https://schema.org/Report",
+    "id": 7,
+    "articleBody": "Insecure Design is a new category for 2021, with a focus on risks related to d,esign flaws. If we genuinely want to \"move left\" as an industry, we need more threat modeling, secure design patterns and principles, and reference architectures. An insecure design cannot be fixed by a perfect implementation as by definition, needed security controls were never created to defend against specific attacks.",
+    "articleSection": "Multiple",
+    "url": "https://owasp.org/Top10/A04_2021-Insecure_Design/",
+    "genre": "Insecure Design",
+    "keywords": "insecure design implementation secure patterns"
+  },
+  {
+    "@type": "https://schema.org/Report",
+    "id": 8,
+    "articleBody": "Security Misconfiguration moves up from #6 in the previous edition; 90% of applications were tested for some form of misconfiguration, with an average incidence rate of 4.5%, and over 208k occurrences of CWEs mapped to this risk category. With more shifts into highly configurable software, it's not surprising to see this category move up. The former category for A4:2017-XML External Entities (XXE) is now part of this risk category.",
+    "articleSection": "Hardware",
+    "url": "https://owasp.org/Top10/A05_2021-Security_Misconfiguration/",
+    "genre": "Security Misconfiguration",
+    "keywords": "insecure implementation secure patterns external risk"
+  },
+  {
+    "@type": "https://schema.org/Report",
+    "id": 9,
+    "articleBody": "Vulnerable and Outdated Components was previously titled Using Components with Known Vulnerabilities and is #2 in the Top 10 community survey, but also had enough data to make the Top 10 via data analysis. This category moves up from #9 in 2017 and is a known issue that we struggle to test and assess risk. It is the only category not to have any Common Vulnerability and Exposures (CVEs) mapped to the included CWEs, so a default exploit and impact weights of 5.0 are factored into their scores.",
+    "articleSection": "Multiple",
+    "url": "https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/",
+    "genre": "Vulnerable and Outdated Components",
+    "keywords": "insecure implementation risk vulnerabilities components"
+  },
+  {
+    "@type": "https://schema.org/Report",
+    "id": 10,
+    "articleBody": "Identification and Authentication Failures was previously Broken Authentication and is sliding down from the second position, and now includes CWEs that are more related to identification failures. This category is still an integral part of the Top 10, but the increased availability of standardized frameworks seems to be helping.",
+    "articleSection": "Multiple",
+    "url": "https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures/",
+    "genre": "Identification and Authentication Failures",
+    "keywords": "identification authentication risk vulnerabilities frameworks"
+  },
+  {
+    "@type": "https://schema.org/Report",
+    "id": 11,
+    "articleBody": "Software and Data Integrity Failures is a new category for 2021, focusing on making assumptions related to software updates, critical data, and CI/CD pipelines without verifying integrity. One of the highest weighted impacts from Common Vulnerability and Exposures/Common Vulnerability Scoring System (CVE/CVSS) data mapped to the 10 CWEs in this category. A8:2017-Insecure Deserialization is now a part of this larger category.",
+    "articleSection": "Multiple",
+    "url": "https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/",
+    "genre": "Software and Data Integrity Failures",
+    "keywords": "software data integrity vulnerabilities"
+  },
+  {
+    "@type": "https://schema.org/Report",
+    "id": 12,
+    "articleBody": "Security Logging and Monitoring Failures was previously A10:2017-Insufficient Logging & Monitoring and is added from the Top 10 community survey (#3), moving up from #10 previously. This category is expanded to include more types of failures, is challenging to test for, and isn't well represented in the CVE/CVSS data. However, failures in this category can directly impact visibility, incident alerting, and forensics.",
+    "articleSection": "Hardware",
+    "url": "https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/",
+    "genre": "Security Logging and Monitoring Failures",
+    "keywords": "software security logging monitoring"
+  },
+  {
+    "@type": "https://schema.org/Report",
+    "id": 13,
+    "articleBody": "Server-Side Request Forgery is added from the Top 10 community survey (#1). The data shows a relatively low incidence rate with above average testing coverage, along with above-average ratings for Exploit and Impact potential. This category represents the scenario where the security community members are telling us this is important, even though it's not illustrated in the data at this time.",
+    "articleSection": "Multiple",
+    "url": "https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/",
+    "genre": "Server-Side Request Forgery",
+    "keywords": "server-side security forgery request coverage"
+  }
+]
