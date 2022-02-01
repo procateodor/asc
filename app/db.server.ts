@@ -1,5 +1,7 @@
 import sha256 from "crypto-js/sha256";
 
+require("dotenv").config();
+
 import { connection, UsersCollection, client } from "~/libs/connection";
 
 export const getVulnerabilities = () =>

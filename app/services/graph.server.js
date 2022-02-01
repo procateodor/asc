@@ -7,6 +7,8 @@ const { client } = require("~/libs/connection");
 
 import { readFile } from "fs/promises";
 
+require("dotenv").config();
+
 const readTimeout = 30000;
 const writeTimeout = 30000;
 const config = new RepositoryClientConfig("http://127.0.0.1:7200")
