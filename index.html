@@ -362,19 +362,41 @@
         package.
       </p>
       <p>
-        Ably is used as the Pub/Sub system and provides feature-rich realtime
+        <a href="https://ably.com/" target="_blank" rel="noopener noreferrer"
+          >Ably</a
+        >
+        is used as the Pub/Sub system and provides feature-rich realtime
         messaging. It offers real-time alerts about new security issues in the
         form of browser notifications.
       </p>
       <p>
-        MongoDB was replaced with MySQL due to its default contraints (field
-        dimension) and better indexing mechanism.
+        MongoDB was replaced with
+        <a
+          href="https://www.mysql.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >MySQL</a
+        >
+        due to its default contraints (field dimension) and better indexing
+        mechanism.
       </p>
       <p>
-        Finally, the fixes for the vulnerabilities will be stored in GraphDB and
-        interogated by using SPARQL. GraphDB is a semantic graph database that
-        provides the core infrastructure for solutions where modelling agility,
-        data integration and relationship exploration are important.
+        Finally, the fixes for the vulnerabilities will be stored in
+        <a
+          href="https://www.ontotext.com/products/graphdb/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >GraphDB</a
+        >
+        and interogated by using
+        <a
+          href="https://www.w3.org/TR/rdf-sparql-query/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >SPARQL</a
+        >. GraphDB is a semantic graph database that provides the core
+        infrastructure for solutions where modelling agility, data integration
+        and relationship exploration are important.
       </p>
     </section>
     <section id="implementation">
@@ -413,7 +435,167 @@
         <img src="assets/application/sign-in.PNG" alt="sign-in" />
         <small class="image-info">Login View</small>
       </p>
+      <h3>Caching</h3>
+      <p>
+        Redis was used in order to cache the requested data about the
+        vulnerabilities and their fixes. Everytime the Vulnerabilities or
+        Reports pages are refreshed, the data is received from the cache unless
+        new data is added in real time by our mock server. This mechanism
+        minimizes the waiting time for the user.
+      </p>
       <h3>Vulnerabilities</h3>
+      <p>
+        Using Web Application Exploits public dataset regarding the exploits on
+        Web application vulnerabilities, several vulnerabilities were imported
+        into the MySQL database. That being said, in the below figure the
+        Vulnerabilities page can be seen. The vulnerabilities are structured in
+        the form of a table with the following columns: id, description, type,
+        platform, published, verified, port and risk. More details about these
+        attributes can be found in the Data modeling section.
+      </p>
+      <p>
+        Several filtering options are supported by our application. First of
+        all, there is the search input that looks for all the vulnerabilities
+        that contain the specified keywords. A more advanced filtering mechanism
+        is provided at the table level: filter by column with different
+        predicate options (e.g. contains, equals), sorting.
+      </p>
+      <p>
+        In order to build a publish/subscribe system able to offer real-time
+        alerts about new security issues we used
+        <a
+          href="https://developer.mozilla.org/en-US/docs/Web/API/notification"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Notification API</a
+        >
+        for showing the alerts and
+        <a href="https://ably.com/" target="_blank" rel="noopener noreferrer"
+          >Ably</a
+        >
+        as the Pub/Sub messaging system. To test the realtime functionality, we
+        built a mock server that publishes new vulnerabilities to our database.
+        This is done through a job script which is responsible for creating the
+        publishing channel and pushing the new vulnerabilities. On the client
+        side, the subscription happens to the same channel, listens for the
+        received messages and creates the notifications.
+      </p>
+      <p>
+        Moreover, by clicking on a vulnerability we can identify possible fixes
+        and related links about the vulnerability in cause. The returned fixes
+        must match either the platform of the vulnerability, either its content
+        contains keywords from the vulnerability's description.
+      </p>
+      <h3>Vulnerability fixes</h3>
+      <p>
+        GraphDB was used to store the RDF data for the vulnerability fixes and
+        it is queried from the SparQL Query Runner Endpoint. The fixes were
+        defined to contain the following attributes: id, body, url, genre,
+        section and a list of related keywords.
+      </p>
+      <p>
+        The query performed for retrieving the vulnerability fixes is the
+        following:
+      </p>
+      <code>
+        <pre>
+        PREFIX report: <https://schema.org/Report>
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+        SELECT *
+        WHERE {
+            ?report rdf:type report:Report ;
+                    report:identifier ?id;
+                    report:articleBody ?articleBody;
+                    report:articleSection ?articleSection ;
+                    report:url ?url ;
+                    report:genre ?genre ;
+                    report:keywords ?keywords .
+        }
+      </pre
+        >
+      </code>
+      <p>
+        The returned data is in the Json-LD format,
+        <code>application/ld+json</code> format to be more specific. Afterwards,
+        the fixes information is available in multiple formats: HTM with RDFa
+        and Json-LD enhancement. Below you can find samples of how this was
+        achieved:
+        <code>
+          <xmp>
+            <Grid container spacing={2} vocab="http://schema.org/">
+              {filteredReports.map((report) => (
+                <Grid key={report.id} item md={6} xs={12}>
+                  <script type="application/ld+json">
+                    {`
+                      {
+                        "@type"": "${report["@type"]}",
+                        "id"": ${report.id},
+                        "articleBody": "${report.articleBody}",
+                        "articleSection": "${report.articleSection}",
+                        "url": "${report.url}",
+                        "genre": "${report.genre}",
+                        "keywords": "${report.keywords}"
+                      }
+                    `}
+                </script>
+              </Grid>
+              ))}
+            </Grid>
+          </xmp>
+        </code>
+      </p>
+      <p>
+        For the RDFa we used the schema.org vocabulary and the properties from
+        the definition of a
+        <a
+          href="https://schema.org/SoftwareApplication"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Software Application</a
+        >
+        (e.g genre, url, keywords). Most of the provided technical reports and
+        defensive programming guidelines are around SQL injection and OWASP Top
+        10 Security Vulnerabilities.
+      </p>
+    </section>
+    <section id="data">
+      <h2>Data modeling</h2>
+      <img src="assets/ASC-data-modeling.png" alt="models" />
+      <small class="image-info">ASC Models</small>
+      <p style="margin-top: 50px">
+        The main storage solution used for the above presented graph is MySQL
+        and GraphDB, Redis being used for the caching part. Each entity is
+        described in the tables below.
+      </p>
+      <p>
+        The knowledge base of the application can be represented by the
+        following three onthologies: User, Properties and Report, by using owl
+        classes, object properties and data properties. Each entity is described
+        below:
+      </p>
+    </section>
+    <section id="api-specification">
+      <h2>API Specification</h2>
+      <h3>Authentication Endpoints</h3>
+      <p>
+        There are 3 Authentication endpoints:
+        <ol>
+          <li>
+            <b>/register</b> - exposes a POST method that is responsible with creating an user via the provided credentials: name, email and password.
+          </li>
+          <li>
+            <b>/login</b> - exposes a POST method that associates a sessionKey with the logged user an verifies that the password 
+            matches the one in our database.
+          </li>
+          <li>
+          <b>/auth/google</b> - exposes a POST method that is responsible for the login with the Google account.
+          </li>
+        </ol>
+        When the user exits the application, their session is cleared due to the Authenticator's destroy method and the user is redirected back to login.
+      </p>
+      <h3></h3>
     </section>
     <section id="bibliography">
       <h2>6. References</h2>
@@ -440,6 +622,9 @@
           <a href="https://www.mongodb.com/"
             >Mongo DB - https://www.mongodb.com/</a
           >
+        </li>
+        <li>
+          <a href="https://www.mysql.com/">MySQL - https://www.mysql.com/</a>
         </li>
         <li>
           <a href="https://www.w3.org/TR/rdf-sparql-query/"
@@ -471,6 +656,24 @@
         <li>
           <a href="https://www.ontotext.com/products/graphdb/">
             GraphDB - https://www.ontotext.com/products/graphdb/
+          </a>
+        </li>
+        <li>
+          <a href="https://www.exploit-db.com/?type=webapps">
+            Exploit Database - https://www.exploit-db.com/?type=webapps
+          </a>
+        </li>
+        <li>
+          <a href="https://schema.org/SoftwareApplication">
+            Software Application - https://schema.org/SoftwareApplication
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/API/notification"
+          >
+            Notification API -
+            https://developer.mozilla.org/en-US/docs/Web/API/notification
           </a>
         </li>
       </ol>
