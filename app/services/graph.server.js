@@ -1,47 +1,9 @@
-// import axios from "axios";
-
-// export const getUsers = async () => {
-//   try {
-//     const params = new URLSearchParams();
-//     params.append("MIME Type", "application/x-www-form-urlencoded");
-//     params.append(
-//       "query",
-//       `PREFIX users: <http://www.semanticweb.org/ontologies/users#>
-// PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-// PREFIX owl: <http://www.w3.org/2002/07/owl#>
-// SELECT *
-// WHERE {
-//     ?user rdf:type users:User ;
-//           users:user_id ?uid ;
-//           users:name ?name ;
-//           users:email ?email ;
-//           users:password ?password ;
-//           }
-// LIMIT 30`
-//     );
-
-//     const { data } = await axios.post(
-//       "http://127.0.0.1:7200/repositories/asc",
-//       params,
-//       {
-//         headers: {
-//           Accept: "application/sparql-results+json",
-//           "Content-Type": "application/x-www-form-urlencoded",
-//         },
-//       }
-//     );
-
-//     console.log(data);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
 const { RDFMimeType } = require("graphdb").http;
 const { RepositoryClientConfig, RDFRepositoryClient } =
   require("graphdb").repository;
 const { JsonLDParser } = require("graphdb").parser;
 const { GetQueryPayload, QueryType } = require("graphdb").query;
+const { createClient } = require("redis");
 
 const readTimeout = 30000;
 const writeTimeout = 30000;
@@ -56,8 +18,26 @@ const repository = new RDFRepositoryClient(config);
 
 repository.registerParser(new JsonLDParser());
 
+require("dotenv").config();
+
+const client = createClient({
+  url: process.env.REDIS_PROD,
+});
+client.on("error", (err) => console.log("Redis Client Error", err));
+
 const getReports = () =>
-  new Promise((resolve) => {
+  new Promise(async (resolve) => {
+    await client.connect();
+
+    const value = await client.get("reports");
+
+    if (value) {
+      resolve(JSON.parse(value)),
+        {
+          EX: 10,
+        };
+    }
+
     const payload = new GetQueryPayload()
       .setQuery(
         `
@@ -87,21 +67,25 @@ const getReports = () =>
         stream.on("data", (bindings) => {
           data.push(bindings);
         });
-        stream.on("end", () => {
+
+        stream.on("end", async () => {
           try {
-            const final = JSON.parse(data.toString());
-            resolve(
-              final.results.bindings.map((result) => ({
-                "@type": "https://schema.org/Report",
-                id: Number(result.id.value),
-                articleBody: result.articleBody.value,
-                articleSection: result.articleSection.value,
-                url: result.url.value,
-                genre: result.genre.value,
-                keywords: result.keywords.value,
-              }))
-            );
-          } catch (error) {
+            const final = JSON.parse(data.toString().replace(" ,:", " :"));
+
+            const reports = final.results.bindings.map((result) => ({
+              "@type": "https://schema.org/Report",
+              id: Number(result.id.value),
+              articleBody: result.articleBody.value,
+              articleSection: result.articleSection.value,
+              url: result.url.value,
+              genre: result.genre.value,
+              keywords: result.keywords.value,
+            }));
+
+            await client.set("reports", JSON.stringify(reports));
+
+            resolve(reports);
+          } catch {
             resolve([]);
           }
         });

@@ -6,6 +6,7 @@ require("dotenv").config();
 const data = require("./data.json");
 const { getRiskLevel } = require("./import");
 const Ably = require("ably");
+const { createClient } = require("redis");
 
 lightOrm.driver = mysql.createConnection(
   `mysql://${process.env.USERNAME}:${process.env.PASSWORD}@${process.env.HOST}/${process.env.DATABASE}?ssl=true`
@@ -15,12 +16,21 @@ lightOrm.driver.connect();
 const ably = new Ably.Realtime(process.env.ABLY);
 const channel = ably.channels.get("all");
 
-const addVulnerability = () => {
+const client = createClient({
+  url: process.env.REDIS_PROD,
+});
+client.on("error", (err) => console.log("Redis Client Error", err));
+
+const addVulnerability = async () => {
   const random = data[Math.floor(Math.random() * data.length)];
+
+  await client.connect();
+  await client.del("vulnerabilities");
+  await client.disconnect();
 
   lightOrm.driver.query(
     `select id from vulnerabilities ORDER BY id DESC LIMIT 1;`,
-    (err, data) => {
+    (_, data) => {
       if (data[0]?.id) {
         const vul = {
           ...random,

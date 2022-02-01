@@ -130,17 +130,23 @@ export default function Login() {
           </Box>
         </Form>
       </Grid>
-      <Form method="post" action="/auth/google">
-        <Button
-          disableElevation
-          fullWidth
-          size="large"
-          type="submit"
-          variant="contained"
+      <Grid item>
+        <Form
+          style={{ marginTop: "-200px" }}
+          method="post"
+          action="/auth/google"
         >
-          Login with google
-        </Button>
-      </Form>
+          <Button
+            disableElevation
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+          >
+            Login with google
+          </Button>
+        </Form>
+      </Grid>
     </Grid>
   );
 }

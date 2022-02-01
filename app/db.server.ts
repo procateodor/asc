@@ -45,12 +45,12 @@ export const getVulnerabilities = () =>
         "select * from vulnerabilities order by id desc;",
         async (err, data) => {
           if (err) {
-            lightOrm.driver.destroy();
+            await lightOrm.driver.destroy();
             reject(err);
           }
 
           await client.set("vulnerabilities", JSON.stringify(data));
-          lightOrm.driver.destroy();
+          await lightOrm.driver.destroy();
           resolve(data);
         }
       );

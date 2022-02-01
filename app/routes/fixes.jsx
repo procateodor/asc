@@ -3,6 +3,7 @@ import {
   Card,
   CardActions,
   CardContent,
+  Chip,
   FormControl,
   Grid,
   InputLabel,
@@ -177,8 +178,27 @@ export default function Fixes() {
                     className="overflow"
                     variant="body2"
                     color="text.secondary"
+                    gutterBottom
                   >
                     <span property="articleBody">{report.articleBody}</span>
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    className="mt-2"
+                  >
+                    <Grid container alignItems="center" property="keywords">
+                      {report.keywords.split(" ").map((keyword) => (
+                        <Grid item className="mx-1">
+                          <Chip
+                            property="keyword"
+                            size="small"
+                            key={keyword}
+                            label={keyword}
+                          />
+                        </Grid>
+                      ))}
+                    </Grid>
                   </Typography>
                 </CardContent>
                 <CardActions>
