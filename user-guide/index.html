@@ -85,11 +85,11 @@
     <section id="introduction">
       <h2>1. Introduction</h2>
       <p>
-        This document represents a user guide on how to take full advantage of
-        the ASC (Application Security Control) Project features and
-        capabilities. You can explore functionalities like viewing the current
-        vulnerabilities, get real-time notifications when a new vulnerability
-        occurs, view preventions for vulnerabilities and more.
+        This document represents a user guide highlighting what the ASC
+        (Application Security Control) Project has to offer as features. You can
+        explore functionalities like viewing the current vulnerabilities, get
+        real-time notifications when a new vulnerability occurs, view
+        preventions for vulnerabilities and more.
       </p>
       <p>
         If you want to check out the technical documentation, you can do that by
@@ -135,54 +135,116 @@
       <img src="assets/sign-up.PNG" alt="signup" />
       <small class="image-info">Sign up page</small>
       <p>
-        The Sign up page has four simple inputs. The first input is the name,
-        the second one is your email (which will be used for authentication),
-        while the third and the fourth one are password fields. If the password
-        fields do not match, you will not be allowed to create the account. Once
-        you completed the fields, you can press the Sign Up button. If the
-        process is successful, you should be redirected back towards the login
-        page.
+        The Sign up page has four basic inputs: name, email (which will be used
+        for authentication) and the password fields. In order to allow the user
+        to create his account, the password fields must match. Once the fields
+        are completed, you can press the "SIGN UP" button. After the process of
+        creating the account is finished successfully, you will be redirected to
+        the login page.
       </p>
     </section>
     <section id="vulnerabilities">
       <h2>4. Vulnerabilities page</h2>
-      <p></p>
+      <p>
+        Once the user is authenticated, he is redirected to the Vulnerabilities
+        page. The vulnerabilities are structured in the form of a table with the
+        following columns: id, description, type of the vulnerability, platform
+        on which the vulnerability can happen, published is the date when the
+        issue was first detected, verified is true if the vulnerability was
+        confirmed to be malicious, port and more importantly, the risk which
+        represents the level of impact of each security issue.
+      </p>
       <img src="assets/vulnerabilities.png" alt="vulnerabilities" />
       <small class="image-info">Vulnerabilities page</small>
     </section>
     <section id="vulnerabilities-filter">
       <h2>4.1 Filtering & sorting</h2>
-      <p></p>
+      <p>
+        There are several options of filtering the vulnerabilities from the
+        table. You can sort each column either in ascending, either in
+        descending order, you can hide or show some columns or you can filter
+        them based some custom criteria.
+      </p>
       <img src="assets/vulnerabilities-1.png" alt="vulnerabilities" />
+      <small class="image-info">Vulnerabilities page</small>
+      <p>
+        For example, as you can see in the second picture below, we removed the
+        Verified and Port columns by unchecking the columns.
+      </p>
+      <img src="assets/vulnerabilities-2.png" alt="vulnerabilities" />
+      <small class="image-info">Vulnerabilities page</small>
+      <p>
+        For more advanced filtering options, you can filter by each column by
+        using an operator by choice: contains, equals, starts with, ends with,
+        is empty or is not empty. In the case below, we were interested in
+        finding all the vulnerabilities related to authentication so we selected
+        that the description must contain the keyword "authentication".
+      </p>
+      <img src="assets/vulnerabilities-3.png" alt="vulnerabilities" />
       <small class="image-info">Vulnerabilities page</small>
     </section>
     <section id="vulnerabilities-notifications">
       <h2>4.2 Notifications</h2>
-      <p></p>
+      <p>
+        Everytime a new security issue is detected and added into the
+        application, you will be notified in realtime about it and the interface
+        will be updated accordingly to contain the latest vulnerabilities. This
+        way, you will always be aware and you will be able to minimize the
+        impact in case of a high severity vulnerability.
+      </p>
       <img src="assets/notification.png" alt="vulnerabilities" />
-      <small class="image-info">Vulnerabilities page</small>
-    </section>
-    <section id="vulnerabilities-preventions">
-      <h2>4.3 Search preventions</h2>
-      <p></p>
-      <img src="assets/vulnerabilities.png" alt="vulnerabilities" />
       <small class="image-info">Vulnerabilities page</small>
     </section>
     <section id="reports">
       <h2>5. Reports page</h2>
-      <p></p>
+      <p>
+        This page provides various solutions like technical reports and
+        defensive programming guidelines to help preventing some security
+        issues. Each report has a title, the platform on which it can occur, a
+        concise and clear description regarding the issue and a list of related
+        keywords. The more recent updates regarding web application security are
+        covered by
+        <a
+          href="https://owasp.org/Top10/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >OWASP Top 10 Web Application Security Risks</a
+        >
+        and were added especially for raising the awareness for our users.
+      </p>
       <img src="assets/reports.png" alt="reports" />
       <small class="image-info">Reports page</small>
     </section>
     <section id="reports-filter">
       <h2>5.1 Filtering</h2>
-      <p></p>
+      <p>
+        Moreover, the reports can be as well filtered by platform and you are
+        also able to search based on keywords matching the title, the
+        description of the list of keywords from each report.
+      </p>
+      <p>
+        Furthermore, by clicking on a vulnerability you can identify related
+        techincal reports and links about the vulnerability in cause. The
+        returned reports must match either the platform of the vulnerability or
+        title, either its content contains keywords from the vulnerability's
+        description. In the picture below, the "Odine Solutions GateKeeper 10
+        trafficCycle SQL Injection" was previously selected. As a result, five
+        related reports were identified on multiple platforms and having several
+        keywords in common.
+      </p>
       <img src="assets/reports-2.png" alt="reports" />
       <small class="image-info">Reports page</small>
     </section>
     <section id="conclusions">
       <h2>6. Conclusions</h2>
-      <p></p>
+      <p>
+        To conclude, the current application represents a solution useful for
+        any developer who is interested in keeping their applications secure and
+        who want to be aware of the latest security issues and prevention
+        methods. As for the future work, we propose enhancing the available
+        information regarding the vulnerabilities and related technical reports,
+        pieces of advice and defensive programming guidelines.
+      </p>
     </section>
   </body>
 </html>
