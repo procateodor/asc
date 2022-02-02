@@ -25,3 +25,12 @@ $ node scripts/job.js
 ```bash
 project infoiasi wade web
 ```
+
+## Contributions
+
+> 1. Documentation - Andra Gistescu & Teodor Proca
+> 2. User Guide - Andra Gistescu
+> 3. Vulnerabilities provisioning job - Teodor Proca
+> 4. UI - Andra Gistescu & Teodor Proca
+> 5. GraphDB setup + data + SPARQL query - Andra Gistescu & Teodor Proca
+> 6. MySQL setup + data + caching - Andra Gistescu & Teodor Proca
